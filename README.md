@@ -1,5 +1,7 @@
 # food_deliver_app
 
+![showcase](./showcase.png)
+
 A new Flutter project.
 
 ## Getting Started
