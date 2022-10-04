@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_deliver_app/colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,22 +12,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
-      body: Container(),
+      // backgroundColor: primaryColor,
+      body: SizedBox(
+        width: double.infinity,
+        child: ListView(
+          children: [
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset('assets/icons/hamburger.svg'),
+                  SvgPicture.asset('assets/icons/shopping-cart.svg'),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // import 'package:flutter/material.dart';
 

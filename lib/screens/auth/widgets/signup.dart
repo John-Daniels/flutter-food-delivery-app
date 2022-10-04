@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_deliver_app/colors.dart';
-
-import '../auth_screen.dart';
+import 'package:food_deliver_app/screens/home/home_screen.dart';
 
 class Signup extends StatelessWidget {
   const Signup({
@@ -73,7 +72,7 @@ class Signup extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => const AuthScreen(),
+                      builder: (_) => const HomeScreen(),
                     ),
                   );
                 },
