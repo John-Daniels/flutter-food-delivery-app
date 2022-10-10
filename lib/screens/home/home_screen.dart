@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_deliver_app/screens/home/widgets/searchbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,8 +14,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: primaryColor,
-      body: SizedBox(
+      body: Container(
         width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 35),
         child: ListView(
           children: [
             Container(
@@ -25,7 +27,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   SvgPicture.asset('assets/icons/shopping-cart.svg'),
                 ],
               ),
-            )
+            ),
+
+            // delish
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              child: Text(
+                'Delicious\nfood for you',
+                style: Theme.of(context).textTheme.headline3!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+              ),
+            ),
+
+            const MySearchBar()
           ],
         ),
       ),
