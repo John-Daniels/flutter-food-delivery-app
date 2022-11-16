@@ -1,6 +1,8 @@
 # food_deliver_app
 
-![showcase](./showcase.png)
+![showcase](./showcase/showcase.png)
+![showcase](./showcase/screenshot1.png)
+![showcase](./showcase/screenshot2.png)
 
 A new Flutter project.
 
