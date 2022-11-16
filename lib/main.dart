@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, _) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'First Method',
           theme: ThemeData(
             primaryColor: primaryColor,
