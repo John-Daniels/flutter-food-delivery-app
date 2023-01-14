@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_deliver_app/colors.dart';
+import 'package:food_deliver_app/themes/app_colors.dart';
 import 'package:food_deliver_app/screens/home/home_screen.dart';
+import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
   const Login({
@@ -70,11 +71,7 @@ class Login extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const HomeScreen(),
-                    ),
-                  );
+                  Get.toNamed(HomeScreen.routeName);
                 },
                 child: Text(
                   'login',
