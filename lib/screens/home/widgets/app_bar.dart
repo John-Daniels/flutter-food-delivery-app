@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_deliver_app/controllers/zoom_controller.dart';
+import 'package:get/get.dart';
 
 AppBar MyAppBar() {
+  var zoomDrawer = Get.find<ZoomController>();
+
   return AppBar(
     automaticallyImplyLeading: false,
     toolbarHeight: 70,
@@ -9,7 +13,9 @@ AppBar MyAppBar() {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            zoomDrawer.toggleDrawer();
+          },
           icon: SvgPicture.asset(
             'assets/icons/hamburger.svg',
             color: Colors.black45,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:food_deliver_app/colors.dart';
+import 'package:food_deliver_app/themes/app_colors.dart';
 
 class MyBottomAppBar extends StatelessWidget {
   final int index;

@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Veggie tomato mix",
+    "price": 1900,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "foods"
+  },
+  {
+    "title": "Spicy fish sauce",
+    "price": 2300,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "foods"
+  },
+  {
+    "title": "Jellof Rice with Chicken",
+    "price": 2300,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "foods"
+  },
+  {
+    "title": "Pinnaple Cooktail",
+    "price": 500,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "drinks"
+  },
+  {
+    "title": "Strawberry smoothie",
+    "price": 900,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "drinks"
+  },
+  {
+    "title": "Chocolate bar",
+    "price": 500,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "snacks"
+  },
+  {
+    "title": "Digestive Chocolate biscuits",
+    "price": 600,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "snacks"
+  },
+  {
+    "title": "Chicken Sauce",
+    "price": 2000,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "sauce"
+  },
+  {
+    "title": "Pepper soup",
+    "price": 3000,
+    "image": "assets/images/food1.png",
+    "deliveryInfo": "Delivered between monday aug and thursday 20 from 8pm to 91:32 pm",
+    "category": "sauce"
+  }
+]
