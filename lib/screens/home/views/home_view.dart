@@ -8,125 +8,158 @@ import 'package:food_deliver_app/screens/home/widgets/app_bar.dart';
 import 'package:food_deliver_app/screens/home/widgets/bottom_app_bar.dart';
 import 'package:food_deliver_app/screens/home/widgets/food_card.dart';
 import 'package:food_deliver_app/screens/home/widgets/searchbar.dart';
+import 'package:food_deliver_app/widgets/appbar/custom_appbar.dart';
 import 'package:get/get.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  Widget build(BuildContext context) {
+    return GetBuilder<HomeController>(
+      id: 'home_view',
+      builder: (state) {
+        return DefaultTabController(
+          length: 4,
+          child: Scaffold(
+            // backgroundColor: Colors.white,
+            bottomNavigationBar: MyBottomAppBar(
+              index: state.bottomAppBarIndex.value,
+              onTap: state.onBottomNavTap,
+            ),
+            body: PageView(
+              controller: state.pageController.value,
+              physics: const BouncingScrollPhysics(),
+              children: [
+                const Home(),
+                const Center(child: CircularProgressIndicator()),
+                const Center(child: CircularProgressIndicator()),
+                Scaffold(
+                  appBar: const CustomAppBar(
+                    title: Text(
+                      'History',
+                    ),
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: const [],
+                    ),
+                  ),
+                )
+                // Center(child: CircularProgressIndicator()),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
-class _HomeViewState extends State<HomeView> {
-  var bottomAppBarIndex = 0;
+class Home extends StatelessWidget {
+  const Home({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        bottomNavigationBar: MyBottomAppBar(
-          index: bottomAppBarIndex,
-          onTap: (index) => setState(() => bottomAppBarIndex = index),
-        ),
-        appBar: MyAppBar(),
-        body: SizedBox(
-          width: double.infinity,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 27),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // delish
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 30),
-                      child: Text(
-                        'Delicious\nfood for you',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 40,
-                        ),
-                      ),
-                    ),
-
-                    BuildSearchPlaceholder(
-                      onTap: () {
-                        // open search page
-
-                        Get.toNamed(SearchView.routeName);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: defaultPadding + 8),
-              // tabbar
-              Padding(
-                padding: const EdgeInsets.only(left: 75),
-                child: TabBar(
-                  labelColor: primaryColor,
-                  indicatorColor: primaryColor,
-                  labelStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                  unselectedLabelColor: Colors.grey.shade500,
-                  indicatorPadding: const EdgeInsets.all(0),
-                  labelPadding: const EdgeInsets.all(0),
-                  tabs: [
-                    ...(['Foods', 'Drinks', 'Snacks', "Sauce"].map(
-                      (tab) => Tab(
-                        text: tab,
-                        height: 32,
-                      ),
-                    ))
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+    return Scaffold(
+      appBar: MyAppBar(),
+      body: SizedBox(
+        width: double.infinity,
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 27),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: SizedBox(
-                      height: 30,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'see more',
-                          style: TextStyle(color: primaryColor),
-                        ),
+                  // delish
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Text(
+                      'Delicious\nfood for you',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 40,
                       ),
                     ),
+                  ),
+
+                  BuildSearchPlaceholder(
+                    onTap: () {
+                      // open search page
+
+                      Get.toNamed(SearchView.routeName);
+                    },
                   ),
                 ],
               ),
-
-              // tabbarview
-              const SizedBox(
-                width: double.infinity,
-                height: 300,
-                child: TabBarView(
-                  clipBehavior: Clip.none,
-                  children: [
-                    HomeTabContent(category: 'foods'),
-                    HomeTabContent(category: 'drinks'),
-                    HomeTabContent(category: 'snacks'),
-                    HomeTabContent(category: 'sauce')
-                  ],
+            ),
+            SizedBox(height: defaultPadding + 8),
+            // tabbar
+            Padding(
+              padding: const EdgeInsets.only(left: 75),
+              child: TabBar(
+                labelColor: primaryColor,
+                indicatorColor: primaryColor,
+                labelStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
+                unselectedLabelColor: Colors.grey.shade500,
+                indicatorPadding: const EdgeInsets.all(0),
+                labelPadding: const EdgeInsets.all(0),
+                tabs: [
+                  ...(['Foods', 'Drinks', 'Snacks', "Sauce"].map(
+                    (tab) => Tab(
+                      text: tab,
+                      height: 32,
+                    ),
+                  ))
+                ],
               ),
+            ),
 
-              const SizedBox(height: 20),
-            ],
-          ),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: SizedBox(
+                    height: 30,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'see more',
+                        style: TextStyle(color: primaryColor),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // tabbarview
+            const SizedBox(
+              width: double.infinity,
+              height: 300,
+              child: TabBarView(
+                clipBehavior: Clip.none,
+                children: [
+                  HomeTabContent(category: 'foods'),
+                  HomeTabContent(category: 'drinks'),
+                  HomeTabContent(category: 'snacks'),
+                  HomeTabContent(category: 'sauce')
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );

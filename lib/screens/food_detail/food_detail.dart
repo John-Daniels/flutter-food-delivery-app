@@ -48,6 +48,7 @@ class FoodDetail extends StatelessWidget {
               const SizedBox(height: 40),
               Text(
                 food.title,
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 28,

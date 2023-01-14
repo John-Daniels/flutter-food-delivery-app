@@ -30,6 +30,7 @@ class FoodCard extends StatelessWidget {
             right: 0,
             child: Container(
               decoration: BoxDecoration(
+                // borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 40,
@@ -38,56 +39,57 @@ class FoodCard extends StatelessWidget {
                   )
                 ],
               ),
-              child: Material(
-                child: InkWell(
-                  onTap: onTap,
-                  borderRadius: BorderRadius.circular(30),
-                  child: Ink(
-                    height: 220,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 40,
-                          spreadRadius: -2,
-                          color: Colors.grey.shade400,
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedBox(height: 8),
-                        // title
-                        SizedBox(
-                          width: 120.w,
-                          child: Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Material(
+                  child: InkWell(
+                    onTap: onTap,
+                    child: Ink(
+                      height: 220,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 40,
+                            spreadRadius: -2,
+                            color: Colors.grey.shade400,
+                          )
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 8),
+                          // title
+                          SizedBox(
+                            width: 120.w,
+                            child: Text(
+                              title,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.clip,
+                              textAlign: TextAlign.center,
                             ),
-                            maxLines: 2,
-                            overflow: TextOverflow.clip,
-                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        const SizedBox(height: 15),
-                        // price
-                        Text(
-                          'N${price.round()}',
-                          style: TextStyle(
-                            color: primaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17,
+                          const SizedBox(height: 15),
+                          // price
+                          Text(
+                            'N${price.round()}',
+                            style: TextStyle(
+                              color: primaryColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                            ),
                           ),
-                        ),
 
-                        const SizedBox(height: 35),
-                      ],
+                          const SizedBox(height: 35),
+                        ],
+                      ),
                     ),
                   ),
                 ),

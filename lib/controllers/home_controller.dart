@@ -6,6 +6,9 @@ import 'package:food_deliver_app/models/food_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  var bottomAppBarIndex = 0.obs;
+  var pageController = PageController().obs;
+
   var foods = <Food>[].obs;
 
   var searchController = TextEditingController().obs;
@@ -19,7 +22,20 @@ class HomeController extends GetxController {
     foods.value = data.map((f) => Food.fromJson(f)).toList();
 
     update();
+
     super.onReady();
+  }
+
+  onBottomNavTap<ValueChanged>(int index) {
+    bottomAppBarIndex.value = index;
+
+    pageController.value.animateToPage(
+      bottomAppBarIndex.value,
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.easeInOut,
+    );
+
+    update(['home_view']);
   }
 
   onSearch<ValueChanged>(search) {
