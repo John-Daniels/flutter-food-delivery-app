@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_deliver_app/constants/assets_constant.dart';
 import 'package:food_deliver_app/controllers/home_controller.dart';
 import 'package:food_deliver_app/models/food_model.dart';
 import 'package:food_deliver_app/screens/food_detail/food_detail.dart';
@@ -30,28 +33,185 @@ class HomeView extends StatelessWidget {
             body: PageView(
               controller: state.pageController.value,
               physics: const BouncingScrollPhysics(),
-              children: [
-                const Home(),
-                const Center(child: CircularProgressIndicator()),
-                const Center(child: CircularProgressIndicator()),
-                Scaffold(
-                  appBar: const CustomAppBar(
-                    title: Text(
-                      'History',
-                    ),
-                  ),
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: const [],
-                    ),
-                  ),
-                )
+              children: const [
+                Home(),
+                // Center(child: CircularProgressIndicator()),
+                Favourites(),
+                Center(child: CircularProgressIndicator()),
+                History()
                 // Center(child: CircularProgressIndicator()),
               ],
             ),
           ),
         );
       },
+    );
+  }
+}
+
+class Favourites extends StatelessWidget {
+  const Favourites({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var foods = Get.find<HomeController>().favouriteFoods;
+
+    return Obx(() => Scaffold(
+          appBar: CustomAppBar(
+            title: const Text('Favorites'),
+            onBackPress: () {},
+          ),
+          body: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              if (foods.isEmpty)
+                NoItems(context)
+              else
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: 300,
+                    crossAxisSpacing: 0,
+                    // childAspectRatio: 4 / 3,
+                  ),
+                  itemCount: foods.length,
+                  itemBuilder: (context, index) {
+                    Food food = foods[index];
+
+                    return Container(
+                      // margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+
+                      child: FoodCard(
+                        onTap: () {
+                          Get.toNamed(FoodDetail.routeName, arguments: food);
+                        },
+                        image: food.image,
+                        price: food.price,
+                        title: food.title,
+                      ),
+                    );
+                  },
+                ),
+            ],
+          ),
+        ));
+  }
+
+  NoItems(BuildContext context) {
+    return SizedBox(
+      height: Get.height * 0.7,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.favorite,
+            size: 118.h,
+            color: Theme.of(context).primaryColor,
+          ),
+          const SizedBox(height: 15),
+          Text(
+            'No Favourites yet',
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            'Click on the heart icon of a Food\nto add to favourite',
+            style: TextStyle(
+              fontSize: 17,
+              color: Colors.black45,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class History extends StatelessWidget {
+  const History({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(
+        onBackPress: () {},
+        title: const Text(
+          'History',
+          style: TextStyle(
+            fontSize: 19,
+          ),
+        ),
+      ),
+      body: SizedBox(
+        width: double.maxFinite,
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    ASSETS.noHistoryIcon,
+                    height: 118.h,
+                    width: 118.33.w,
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    'No history yet',
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Hit the orange button down\nbelow to Create an order',
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black45,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+              ),
+              child: MaterialButton(
+                elevation: 0,
+                color: primaryLightColor,
+                minWidth: double.infinity,
+                height: 70.h,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                onPressed: () {},
+                child: Text(
+                  'Start Ordering',
+                  style: TextStyle(
+                    color: whiteColor,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

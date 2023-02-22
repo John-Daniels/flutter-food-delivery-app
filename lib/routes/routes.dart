@@ -17,20 +17,17 @@ class AppRoutes {
         GetPage(
           name: AuthScreen.routeName,
           page: () => const AuthScreen(),
-          transition: Transition.rightToLeftWithFade,
-          transitionDuration: const Duration(milliseconds: 500),
         ),
         GetPage(
           name: HomeScreen.routeName,
           page: () => const HomeScreen(),
-          transition: Transition.rightToLeftWithFade,
-          transitionDuration: const Duration(milliseconds: 500),
           binding: BindingsBuilder(() {
             Get.put(HomeController());
             Get.put(ZoomController());
           }),
         ),
         GetPage(
+          transitionDuration: const Duration(milliseconds: 300),
           fullscreenDialog: true,
           name: SearchView.routeName,
           page: () => const SearchView(),
@@ -38,9 +35,8 @@ class AppRoutes {
         GetPage(
           name: FoodDetail.routeName,
           page: () => const FoodDetail(),
-          transitionDuration: const Duration(milliseconds: 200),
-          transition: Transition.downToUp,
-          // fullscreenDialog: true,
+          transitionDuration: const Duration(milliseconds: 300),
+          fullscreenDialog: true,
           binding: BindingsBuilder(() {
             Get.put(FoodDetailController());
           }),

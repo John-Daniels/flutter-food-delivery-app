@@ -10,6 +10,7 @@ class HomeController extends GetxController {
   var pageController = PageController().obs;
 
   var foods = <Food>[].obs;
+  var favouriteFoods = <Food>[].obs;
 
   var searchController = TextEditingController().obs;
   var searchFoods = <Food>[].obs;
@@ -22,18 +23,38 @@ class HomeController extends GetxController {
     foods.value = data.map((f) => Food.fromJson(f)).toList();
 
     update();
+    setUpListener();
 
     super.onReady();
   }
 
-  onBottomNavTap<ValueChanged>(int index) {
+  setUpListener() {
+    pageController.value.addListener(() {
+      var val = pageController.value.page!.round();
+      onBottomNavTap(val, move: false);
+    });
+  }
+
+  addToFavourite(Food food, isTrue) {
+    if (isTrue) {
+      favouriteFoods.remove(food);
+    } else {
+      favouriteFoods.add(food);
+    }
+
+    update();
+  }
+
+  onBottomNavTap<ValueChanged>(int index, {bool move = true}) {
     bottomAppBarIndex.value = index;
 
-    pageController.value.animateToPage(
-      bottomAppBarIndex.value,
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.easeInOut,
-    );
+    if (move) {
+      pageController.value.animateToPage(
+        bottomAppBarIndex.value,
+        duration: const Duration(milliseconds: 50),
+        curve: Curves.easeInOut,
+      );
+    }
 
     update(['home_view']);
   }

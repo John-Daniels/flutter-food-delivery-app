@@ -1,7 +1,6 @@
 // ignore_for_file: unused_element
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -10,9 +9,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.actions = const <Widget>[],
     this.backgroundColor = Colors.transparent,
+    this.onBackPress,
   });
 
   final Widget? leading;
+  final VoidCallback? onBackPress;
   final Widget title;
   final List<Widget> actions;
   final Color backgroundColor;
@@ -20,53 +21,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: backgroundColor,
-      foregroundColor: Colors.black,
-      toolbarHeight: 300,
+      toolbarHeight: double.infinity,
+      leadingWidth: 100,
+      leading: leading ??
+          IconButton(
+            onPressed: onBackPress,
+            iconSize: 18,
+            icon: const Icon(Icons.arrow_back_ios_new),
+          ),
+      title: title,
+      centerTitle: true,
       automaticallyImplyLeading: false,
-      // centerTitle: true,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          leading ??
-              IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new),
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-          title,
-          Container(),
-        ],
-      ),
-      actions: actions,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      foregroundColor: Colors.black,
     );
-
-    // return Container(
-    //   // color: primaryColor,
-    //   color: backgroundColor,
-    //   height: 100,
-    //   padding: const EdgeInsets.symmetric(horizontal: 20),
-    //   child: Row(
-    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //     crossAxisAlignment: CrossAxisAlignment.center,
-    //     children: [
-    //       leading != null
-    //           ? IconButton(
-    //               icon: const Icon(Icons.arrow_back_ios_new),
-    //               onPressed: () {
-    //                 Get.back();
-    //               },
-    //             )
-    //           : leading!,
-    //       title,
-    //       if (action != null) action!
-    //     ],
-    //   ),
-    // );
   }
 
   @override
-  Size get preferredSize => const Size(double.maxFinite, 100);
+  Size get preferredSize => const Size(double.maxFinite, 90);
 }

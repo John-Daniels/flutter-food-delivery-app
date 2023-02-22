@@ -22,10 +22,12 @@ class MyApp extends StatelessWidget {
       builder: (context, _) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'First Method',
+          title: 'Food App',
           theme: AppTheme.lightTheme,
           initialRoute: OnboardingScreen.routeName,
           getPages: AppRoutes.routes,
+          transitionDuration: const Duration(milliseconds: 200),
+          defaultTransition: Transition.rightToLeftWithFade,
         );
       },
     );

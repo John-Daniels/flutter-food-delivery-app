@@ -16,7 +16,7 @@ class FoodDetail extends StatelessWidget {
       Food food = state.food.value;
 
       return Scaffold(
-        appBar: const _CustomAppBar(),
+        appBar: _CustomAppBar(liked: state.isFavorite, onLike: state.toggleFav),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -49,7 +49,7 @@ class FoodDetail extends StatelessWidget {
               Text(
                 food.title,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 28,
                     ),
@@ -159,7 +159,9 @@ class CirclePlaceholder extends StatelessWidget {
 }
 
 class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _CustomAppBar();
+  final VoidCallback onLike;
+  final bool liked;
+  const _CustomAppBar({required this.onLike, required this.liked});
 
   @override
   Widget build(BuildContext context) {
@@ -178,8 +180,10 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.favorite_border),
-            onPressed: () {},
+            icon: Icon(liked ? Icons.favorite : Icons.favorite_border),
+            color: liked ? Theme.of(context).primaryColor : null,
+            onPressed: onLike,
+            iconSize: 25,
           ),
         ],
       ),

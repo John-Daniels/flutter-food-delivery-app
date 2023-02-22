@@ -25,7 +25,6 @@ class HomeScreen extends StatelessWidget {
           menuBackgroundColor: primaryColor,
           borderRadius: 30,
           androidCloseOnBackTap: true,
-
           boxShadow: [
             BoxShadow(
               offset: const Offset(-40, 35),
