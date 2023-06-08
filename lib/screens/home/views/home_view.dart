@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_deliver_app/constants/assets_constant.dart';
 import 'package:food_deliver_app/controllers/home_controller.dart';
+import 'package:food_deliver_app/controllers/zoom_controller.dart';
 import 'package:food_deliver_app/models/food_model.dart';
 import 'package:food_deliver_app/screens/food_detail/food_detail.dart';
 import 'package:food_deliver_app/screens/home/views/search_view.dart';
 import 'package:food_deliver_app/themes/app_colors.dart';
-import 'package:food_deliver_app/screens/home/widgets/app_bar.dart';
 import 'package:food_deliver_app/screens/home/widgets/bottom_app_bar.dart';
 import 'package:food_deliver_app/screens/home/widgets/food_card.dart';
 import 'package:food_deliver_app/screens/home/widgets/searchbar.dart';
@@ -223,17 +223,54 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var zoomDrawer = Get.find<ZoomController>();
+
     return Scaffold(
-      appBar: MyAppBar(),
-      body: SizedBox(
-        width: double.infinity,
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 27),
+      // appBar: MyAppBar(),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar.large(
+            leading: IconButton(
+              onPressed: () {
+                zoomDrawer.toggleDrawer();
+              },
+              icon: SvgPicture.asset(
+                'assets/icons/hamburger.svg',
+                color: Colors.black45,
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset('assets/icons/shopping-cart.svg'),
+              ),
+            ],
+            // expandedHeight: 300,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            // snap: true,
+            // pinned: true,
+            // stretchTriggerOffset: 300,
+
+            // toolbarHeight: 80,
+            // expandedHeight: 300,
+            collapsedHeight: 150,
+            floating: true,
+            // stretch: true,
+
+            title: BuildSearchPlaceholder(
+              onTap: () {
+                // open search page
+
+                Get.toNamed(SearchView.routeName);
+              },
+            ),
+
+            flexibleSpace: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 27, vertical: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   // delish
                   const Padding(
@@ -258,69 +295,93 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: defaultPadding + 8),
-            // tabbar
-            Padding(
-              padding: const EdgeInsets.only(left: 75),
-              child: TabBar(
-                labelColor: primaryColor,
-                indicatorColor: primaryColor,
-                labelStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-                unselectedLabelColor: Colors.grey.shade500,
-                indicatorPadding: const EdgeInsets.all(0),
-                labelPadding: const EdgeInsets.all(0),
-                tabs: [
-                  ...(['Foods', 'Drinks', 'Snacks', "Sauce"].map(
-                    (tab) => Tab(
-                      text: tab,
-                      height: 32,
-                    ),
-                  ))
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+          ),
+          SliverToBoxAdapter(
+            child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: SizedBox(
-                    height: 30,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'see more',
-                        style: TextStyle(color: primaryColor),
-                      ),
+                  padding: const EdgeInsets.only(left: 75),
+                  child: TabBar(
+                    labelColor: primaryColor,
+                    indicatorColor: primaryColor,
+                    labelStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
+                    unselectedLabelColor: Colors.grey.shade500,
+                    indicatorPadding: const EdgeInsets.all(0),
+                    labelPadding: const EdgeInsets.all(0),
+                    tabs: [
+                      ...(['Foods', 'Drinks', 'Snacks', "Sauce"].map(
+                        (tab) => Tab(
+                          text: tab,
+                          height: 32,
+                        ),
+                      ))
+                    ],
                   ),
                 ),
+
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: SizedBox(
+                        height: 30,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'see more',
+                            style: TextStyle(color: primaryColor),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                // tabbarview
+                const SizedBox(
+                  width: double.infinity,
+                  height: 300,
+                  child: TabBarView(
+                    clipBehavior: Clip.none,
+                    children: [
+                      HomeTabContent(category: 'foods'),
+                      HomeTabContent(category: 'drinks'),
+                      HomeTabContent(category: 'snacks'),
+                      HomeTabContent(category: 'sauce')
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
               ],
             ),
+          )
+        ],
+      ),
+    );
+  }
+}
 
-            // tabbarview
-            const SizedBox(
-              width: double.infinity,
-              height: 300,
-              child: TabBarView(
-                clipBehavior: Clip.none,
-                children: [
-                  HomeTabContent(category: 'foods'),
-                  HomeTabContent(category: 'drinks'),
-                  HomeTabContent(category: 'snacks'),
-                  HomeTabContent(category: 'sauce')
-                ],
-              ),
-            ),
+class test extends StatelessWidget {
+  const test({
+    super.key,
+  });
 
-            const SizedBox(height: 20),
-          ],
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          SizedBox(height: defaultPadding + 8),
+          // tabbar
+        ],
       ),
     );
   }
